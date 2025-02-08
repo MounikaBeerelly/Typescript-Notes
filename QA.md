@@ -120,3 +120,17 @@
         throw new Error(message);
     }
     ```
+3. ### Static Typing in TypeScript
+- Static Typing is a key feature in TypeScript that allows you to define the type of a variable, function parameter, or return value at the time of writing your code. 
+- This is different from JavaScript, where types are determined at runtime. 
+- With static typing, TypeScript checks your code for type errors before it even runs, helping you catch mistakes early.
+1. Type Annotations
+- Type annotations in TypeScript are a way to explicitly declare the type of a variable, function parameter, or return value. This means you tell TypeScript what kind of data a variable should hold.
+- Example of Type Annotations
+    ```
+    let message: string = "Hello, TypeScript!"; // 'message' must always be a string
+    let count: number = 42;                    // 'count' m
+    ust always be a number
+    let isDone: boolean = true;                // 'isDone' 
+    must always be a boolean
+    ```
