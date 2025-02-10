@@ -270,3 +270,169 @@ name, age, and User must have isActive properties with specific types (string, n
     - Functions - Interfaces can describe the structure of functions too, not just objects.
     - Inheritance - Interfaces can be extended, like building new floors on an existing building.
 - Interfaces help you define clear, consistent structures for your objects, leading to more maintainable and error-free code.
+
+5. ### Union Types in TypeScript
+- Union Types in TypeScript allow a variable to hold more than one type of value.
+- This is useful when a variable can be one of several types, giving you flexibility while still enforcing type safety.
+1. **Basic Syntax**
+- To use a union type, you use the pipe symbol ( | ) to separate the different types a variable can hold.
+- Example of Union Types
+    ```
+    let value: string | number;
+
+    value = "Hello";  // OK
+    value = 42;       // OK
+    // value = true;  // Error: Type 'boolean' is not assignable to type 'string | number'
+    ```
+- **Remember :**
+- `value` can be either a `string` or a `number` , but not a `boolean`.
+2. **Using Union Types in Functions**
+- Union types are also useful for function parameters and return values, allowing functions to accept or return multiple types.
+- Example of Union Types in Functions
+    ```
+    function printId(id: number | string): void {
+        console.log(`Your ID is: ${id}`);
+    }
+    printId(123);      // Output: Your ID is: 123
+    printId("ABC123"); // Output: Your ID is: ABC123
+    ```
+- **Key Points:**
+- printId can accept either a number or a string as its argument.
+3. **Type Narrowing :**
+- When you use union types, TypeScript often needs to determine which type is being used at a specific point in the code. This process is called type narrowing. 
+-mTypeScript uses conditions to figure out which type is 
+currently being used.
+- Example of Type Narrowing
+    ```
+    function printLength(value: string | number): void {
+        if (typeof value === "string") {
+        console.log(`String length: ${value.length}`);
+    } else {
+        console.log(`Number value: ${value}`);
+    }
+    }
+    printLength("Hello"); // Output: String length: 5
+    printLength(123);     // Output: Number value: 123
+    ```
+- **How it works:**
+    - The `typeof` operator is used to check the type of `value`.
+    - If `value` is a string, `value.length` is used. If itʼs a number, just print the `number`.
+4. **Union Types with Object :**
+- Union types can also be used with objects, allowing different object shapes.
+- Example with Object Union Types
+    ```
+    interface Cat {
+        type: "cat";
+        meow: () => void;
+    }
+    interface Dog {
+        type: "dog";
+        bark: () => void;
+    }
+    type Pet = Cat | Dog;
+    function interactWithPet(pet: Pet): void {
+        if (pet.type === "cat") {
+            pet.meow();
+        } else {
+            pet.bark();
+        }
+    }
+    const myCat: Cat = { type: "cat", meow: () => console.log("Meow!") };
+    const myDog: Dog = { type: "dog", bark: () => console.log("Woof!") };
+    interactWithPet(myCat); // Output: Meow!
+    interactWithPet(myDog); // Output: Woof!
+    ```
+- **Key Points:**
+- Pet can be either a Cat or a Dog.
+- Type narrowing is used to handle the different methods ( meow or bark )  based on the type of pet.
+- **How to Remember Union Types :**
+    - Pipe Symbol (|) - Think of it as saying “or.ˮ You can have string or number.
+    - Flexibility - Union types give you flexibility by allowing multiple possible types for a variable.
+    - Type Narrowing - TypeScript helps you figure out which type youʼre dealing with at any point in your code.
+- Union types are powerful tools in TypeScript that help you handle variables and functions that can work with multiple types, improving the flexibility and safety of your code.
+
+6. ### Generics in TypeScript
+- Generics in TypeScript are a way to create reusable components or functions that work with different data types. - They allow you to define a placeholder for a type, which you can then specify later when you use the omponent or function. 
+- This makes your code more flexible and type-safe.
+1. **Basics of Generics :**
+- Generics use a placeholder `<T> (or any letter)` to represent a type. 
+- You can then specify the actual type when you use the generic component or function.
+- Example of a Generic Function
+    - Hereʼs a simple generic function that returns the same type that it receives.
+    ```
+    function identity<T>(value: T): T {
+        return value;
+    }
+    console.log(identity("Hello")); // Output: Hello
+    console.log(identity(42));      // Output: 42
+    ```
+- **Key Points:**
+    - `<T>` is a placeholder for any type.
+    - The function identity works with any type (string, number, etc.) and returns that same type.
+2. **Generics with Classes**
+- Generics can also be used with classes to create data structures that can work with different types.
+- Example of a Generic Class
+    ```
+    class Box<T> {
+        private value: T;
+        constructor(value: T) {
+        this.value = value;
+    }
+    getValue(): T {
+        return this.value;
+    }
+    }
+    const stringBox = new Box<string>("A String");
+    console.log(stringBox.getValue()); // Output: A String
+    const numberBox = new Box<number>(123);
+    console.log(numberBox.getValue()); // Output: 123
+    ```
+- **Key Points:**
+    - `Box<T>` can hold a value of any type.
+    - When creating a Box , you specify the type of value it will hold (string or number in this case).
+3. **Generics with Interfaces :**
+- Generics can be used with interfaces to define contracts for various types.
+- Example of a Generic Interface
+    ```
+    interface Result<T> {
+        data: T;
+        error: string | null;
+    }
+    const successResult: Result<string> = {
+        data: "Everything is fine",
+        error: null,
+    };
+    const failureResult: Result<number> = {
+        data: 0,
+        error: "An error occurred",
+    };
+    console.log(successResult); // Output: { data: "Everything is fine", error: null }
+    console.log(failureResult); // Output: { data: 0, error: "An error occurred" }
+    ```
+- **Key Points:**
+    - Result<T> can describe the result of an operation with any type of data (string, number, etc.).
+4. **Constraints on Generics  :**
+- You can restrict the types that can be used with a generic by adding constraints. This ensures that the generic type adheres to a certain shape or behavior.
+- Example of Generics with Constraints
+    ```
+    interface Lengthwise {
+        length: number;
+    }
+    function logLength<T extends Lengthwise>(value: T): void {
+        console.log(`Length: ${value.length}`);
+    }
+    logLength("Hello");      // Output: Length: 5
+    logLength([1, 2, 3]);   // Output: Length: 3
+    // logLength(42);        // Error: Argument of type 'number' is not assignable to parameter of type 'Lengthwis
+    e'.
+    ```
+- **Key Points:**
+    - T extends `Lengthwise` ensures that `T` has a length property.
+    - This allows `logLength` to work only with types that have a length property.
+- **How to Remember Generics:**
+    - Placeholders for Types - Generics are like placeholders (`<T>`) for types. They let you write code that can handle many types, not just one.
+    - Flexibility and Reusability - Generics make your functions and classes flexible and reusable with different types.
+    - Constraints - You can limit what types can be used with generics to ensure they meet certain requirements (like having a length property).
+- Generics in TypeScript help you create flexible and reusable components while maintaining type safety, making your code more robust and adaptable.
+
+  
