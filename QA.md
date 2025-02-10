@@ -435,4 +435,58 @@ currently being used.
     - Constraints - You can limit what types can be used with generics to ensure they meet certain requirements (like having a length property).
 - Generics in TypeScript help you create flexible and reusable components while maintaining type safety, making your code more robust and adaptable.
 
+7. ### Type Inference in TypeScript
+- Type Inference is a feature in TypeScript where the compiler automatically determines the type of a variable based on its value. 
+- This means you donʼt always need to explicitly specify types because TypeScript can "infer" them from the context.
+1. **How Type Inference Works -**
+- When you declare a variable and assign a value to it, TypeScript will infer the type of the variable from the assigned value.
+- Example of Type Inference
+    ```
+    let message = "Hello, TypeScript!"; // TypeScript infers 'string'
+    let count = 42;                     // TypeScript infers 'number'
+    let isValid = true;                 // TypeScript infers 'boolean'
+    // message = 123;  // Error: Type 'number' is not assignable to type 'string'
+    ```
+- **Key Points:**
+    - message is inferred as string because of the initial value "Hello, TypeScript!".
+    - You cannot assign a value of a different type to the variable after initialization.
+2. **Type Inference in Functions**
+- For functions, TypeScript can infer the return type based on the function's implementation.
+- Example of Type Inference in Functions
+    ```
+    function add(a: number, b: number) {
+        return a + b; // TypeScript infers the return type as 'number'
+    }
+    const result = add(10, 20); // TypeScript knows 'result' is a number
+    console.log(result);        // Output: 30
+- **Key Points:**
+    - TypeScript infers the return type of the add function as number from the a + b operation.
+    - Explicitly declaring the return type is optional when inference works correctly.
+3. **Contextual Typing**
+- TypeScript can infer the type of a variable or function based on its context, such as in event handlers or callbacks.
+- Example of Contextual Typing
+    ```
+    document.addEventListener("click", (event) => {
+        console.log(event.clientX, event.clientY); // 'event' is inferred as MouseEvent
+    });
+    ```
+- **Key Points:**
+    - The event parameter is automatically inferred as a `MouseEvent` because the callback is used in a click event handler.
+4. **Best Practices with Type Inference**
+- While type inference reduces the need for explicit type annotations, there are situations where you should still provide explicit types for clarity, especially for function parameters and return types.
+- Example of Explicit Types vs. Inferred Types
+    ```
+    // Inferred type
+    let name = "Alice"; // TypeScript infers 'string'
+    // Explicit type (useful for clarity or complex scenarios)
+    let age: number = 25; // Explicitly declares 'number' type
+    ```
+- **When to Use Explicit Types:**
+    - When the inferred type is not obvious.
+    - When the code's readability or intent can benefit from explicit annotation.
+- **How to Remember Type Inference:**
+    - Saves Effort - TypeScript automatically assigns types based on values, saving you from writing redundant type annotations.
+    - Automatic but Smart - TypeScript will infer types wherever it can, but you can always explicitly declare them if needed.
+    - Clarity is Key - Rely on type inference for simple cases, but use explicit types for complex ones or when the inferred type isnʼt clear.
+- Type inference is a powerful feature in TypeScript that simplifies coding while maintaining type safety.
   
