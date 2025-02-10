@@ -1,10 +1,10 @@
 # TypeScript Question and Answers
 
-1. ### What is TypeScript ?
+1. ## What is TypeScript ?
 - TypeScript is a programming language that adds extra features to JavaScript. 
 - It helps you write more reliable code by letting you define what type of data (like numbers, strings, or objects) each part of your code should use.
 
-2. ###  Basic Types in TypeScript ?
+2. ##  Basic Types in TypeScript ?
 - TypeScript extends JavaScript by adding types to variables, enabling better error detection and code clarity. 
 - Basic types are the foundation of TypeScript, and they represent the simplest forms of data youʼll work with.
 - List of Basic Types
@@ -120,7 +120,7 @@
         throw new Error(message);
     }
     ```
-3. ### Static Typing in TypeScript
+3. ## Static Typing in TypeScript
 - Static Typing is a key feature in TypeScript that allows you to define the type of a variable, function parameter, or return value at the time of writing your code. 
 - This is different from JavaScript, where types are determined at runtime. 
 - With static typing, TypeScript checks your code for type errors before it even runs, helping you catch mistakes early.
@@ -166,7 +166,7 @@
     - Code Clarity : With types clearly marked, anyone can quickly understand what your code is doing.
 - By using static typing and type annotations in TypeScript, you write safer, more reliable code that's easier to read and maintain.
 
-4. ### Interfaces in TypeScript.
+4. ## Interfaces in TypeScript.
 - **Interfaces** in TypeScript are like blueprints that define the structure of an object. They allow you to specify what properties and methods an object should have, along with their types. 
 - Interfaces ensure that objects follow a certain structure,helping to catch errors and making your code more predictable.
 1. **Basic Structure of an Interface** :
@@ -271,7 +271,7 @@ name, age, and User must have isActive properties with specific types (string, n
     - Inheritance - Interfaces can be extended, like building new floors on an existing building.
 - Interfaces help you define clear, consistent structures for your objects, leading to more maintainable and error-free code.
 
-5. ### Union Types in TypeScript
+5. ## Union Types in TypeScript
 - Union Types in TypeScript allow a variable to hold more than one type of value.
 - This is useful when a variable can be one of several types, giving you flexibility while still enforcing type safety.
 1. **Basic Syntax**
@@ -351,7 +351,7 @@ currently being used.
     - Type Narrowing - TypeScript helps you figure out which type youʼre dealing with at any point in your code.
 - Union types are powerful tools in TypeScript that help you handle variables and functions that can work with multiple types, improving the flexibility and safety of your code.
 
-6. ### Generics in TypeScript
+6. ## Generics in TypeScript
 - Generics in TypeScript are a way to create reusable components or functions that work with different data types. - They allow you to define a placeholder for a type, which you can then specify later when you use the omponent or function. 
 - This makes your code more flexible and type-safe.
 1. **Basics of Generics :**
@@ -435,7 +435,7 @@ currently being used.
     - Constraints - You can limit what types can be used with generics to ensure they meet certain requirements (like having a length property).
 - Generics in TypeScript help you create flexible and reusable components while maintaining type safety, making your code more robust and adaptable.
 
-7. ### Type Inference in TypeScript
+7. ## Type Inference in TypeScript
 - Type Inference is a feature in TypeScript where the compiler automatically determines the type of a variable based on its value. 
 - This means you donʼt always need to explicitly specify types because TypeScript can "infer" them from the context.
 1. **How Type Inference Works -**
@@ -490,3 +490,57 @@ currently being used.
     - Clarity is Key - Rely on type inference for simple cases, but use explicit types for complex ones or when the inferred type isnʼt clear.
 - Type inference is a powerful feature in TypeScript that simplifies coding while maintaining type safety.
   
+8. ## Optional Properties/Parameters:
+- In TypeScript, you can define properties and parameters as optional.
+- This means the value is not required, and the property or parameter may or may not be provided.
+1. **Optional Properties in Interfaces**
+    - When defining an interface, you can make a property optional by adding a `?` after its name. If the property is not provided, TypeScript will not throw an error.
+    - Example:
+    ```
+    interface User {
+        name: string;
+        age?: number; // 'age' is optional
+    }
+    const user1: User = { name: "Alice" };       // Valid: 'age' is not provided
+    const user2: User = { name: "Bob", age: 30 }; // Valid: 
+    'age' is provided
+    console.log(user1); // Output: { name: "Alice" }
+    console.log(user2); // Output: { name: "Bob", age: 30 }
+    ```
+- **Key Points:**
+    - The ? makes the age property optional.
+    - If age is not provided, TypeScript does not raise an error.
+2. **Optional Parameters in Functions**
+- When defining a function, you can make a parameter optional using the same `?`. Optional parameters must always come after required parameters.
+- Example:
+    ```
+    function greet(name: string, age?: number): string {
+        if (age) {
+            return `Hello, ${name}. You are ${age} years old.`;
+        }
+        return `Hello, ${name}.`;
+    }
+    console.log(greet("Alice"));       // Output: Hello, Alice.
+    console.log(greet("Bob", 30));     // Output: Hello, Bob. You are 30 years old.
+- **Key Points:**
+    - `age` is an optional parameter. It can be provided or omitted.
+    - The function handles both cases (age provided or not) correctly.
+3. **Using Optional Properties with Default Values -**
+- Optional properties do not have default values unless explicitly assigned.
+- Example:
+    ```
+    interface Config {
+        timeout?: number; // Optional, default behavior depends on usage
+    }
+    const defaultConfig: Config = {};
+    const customConfig: Config = { timeout: 5000 };
+    console.log(defaultConfig.timeout); // Output: undefined
+    console.log(customConfig.timeout);  // Output: 5000
+    ```
+- **Remember This:**
+    - Syntax - Use `?` to make properties or parameters optional.
+    - Optional Properties - Allow objects to omit certain fields.
+    - Optional Parameters - Allow functions to be called with fewer arguments.
+    - Safe Usage - Always handle the possibility of `undefined` when accessing optional values.
+- By using optional properties and parameters, you can make your code more flexible and easier to use, while still maintaining type safety.
+ 
