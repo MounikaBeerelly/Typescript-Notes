@@ -543,4 +543,110 @@ currently being used.
     - Optional Parameters - Allow functions to be called with fewer arguments.
     - Safe Usage - Always handle the possibility of `undefined` when accessing optional values.
 - By using optional properties and parameters, you can make your code more flexible and easier to use, while still maintaining type safety.
+
+9. ## Enums in typeScript
+- Enums are a special feature in TypeScript that allow you to define a set of named constants. 
+- They make code more readable and maintainable by 
+grouping related values together.
+- Types of Enums in TypeScript :
+1. **Numeric Enums**
+- Default behavior: Members are automatically assigned numeric values starting from 0.
+- Example:
+    ```
+    enum Status {
+        Pending,   // 0
+        InProgress, // 1
+        Completed   // 2
+    }
+    console.log(Status.Pending);     // Output: 0
+    console.log(Status.InProgress);  // Output: 1
+    console.log(Status.Completed);   // Output: 2
+- **Key Points:**
+    - The first member `( Pending )` gets 0 by default, and the rest increment by 1.
+    - You can access enum values using both names `(Status.Pending )` and numbers `( Status[0] )`.
+2. **Custom Numeric Enums**
+- You can assign custom numbers to enum members. Subsequent members will increment from the assigned value unless explicitly defined.
+- Example:
+    ```
+    enum ResponseCode {
+        Success = 200,
+        BadRequest = 400,
+        NotFound = 404
+    }
+    console.log(ResponseCode.Success);    // Output: 200
+    console.log(ResponseCode.BadRequest); // Output: 400
+    console.log(ResponseCode.NotFound);   // Output: 404
+    ```
+- **Key Points:**
+    - Members can have arbitrary numeric values.
+    - Thereʼs no restriction on the order of values.
+3. **String Enums**
+- Enums can also store strings, which are often more descriptive.
+- Example:
+    ```
+    enum Direction {
+        North = "NORTH",
+        South = "SOUTH",
+        East = "EAST",
+        West = "WEST"
+    }
+    console.log(Direction.North); // Output: "NORTH"
+    console.log(Direction.West);  // Output: "WEST"
+    ```
+- **Key Points:**
+    - Each member must have a manually assigned string value.- Unlike numeric enums, string enums do not auto-increment.
+4. **Heterogeneous Enums**
+- Enums can mix numeric and string values, but this is not recommended for readability.
+- Example:
+    ```
+    enum Mixed {
+        Yes = 1,
+        No = "NO"
+    }
+    console.log(Mixed.Yes); // Output: 1
+    console.log(Mixed.No);  // Output: "NO"
+    ```
+- **Key Points:**
+    - Mixing types can make the enum harder to understand and maintain.
+- **Reverse Mapping (Only for Numeric Enums)**
+- Numeric enums support reverse mapping, allowing you to get the name of the enum member using its value.
+- Example:
+    ```
+    enum Status {
+    Pending = 1,
+    InProgress,
+    Completed
+    }
+    console.log(Status[1]); // Output: "Pending"
+    console.log(Status[2]); // Output: "InProgress"
+    ```
+- **Key Points:**
+    - Reverse mapping works only for numeric enums, not string enums.
+- **Enum as Types** 
+- Enums can be used to type variables or parameters to ensure they have only valid values.
+- Example:
+    ```
+    enum Role {
+        Admin,
+        User,
+        Guest
+    }
+    function assignRole(role: Role) {
+        if (role === Role.Admin) {
+            console.log("Admin access granted.");
+        }
+    }
+    assignRole(Role.Admin); // Output: Admin access granted.
+    // assignRole(1);        // Error in strict mode if Role is not directly referenced
+    ```
+- **Use Cases of Enums**
+    - Readable Constants - Replace magic numbers or strings with meaningful names.
+    - Grouping Values - Group related constants like roles, directions, or states.
+    - Type Safety - Prevent invalid values from being assigned.
+- **Best Practices**
+    - Use String Enums - Prefer string enums for descriptive and human readable values.
+    - Avoid Heterogeneous Enums - They can lead to confusion.
+    - Use Reverse Mapping Only If Needed - Numeric enums support it, but itʼs rarely required.
+- Enums are a powerful feature that helps you organize related constants in a type-safe and maintainable way.
+ 
  
